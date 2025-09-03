@@ -1,0 +1,6 @@
+streamlit
+pandas
+pykrx
+plotly
+pytest
+pytest-cov
