@@ -37,3 +37,12 @@ def get_stock_name(ticker: str) -> str:
     """
     return stock.get_market_ticker_name(ticker)
 
+def add_daily_percentage_change(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    데이터프레임에 전일 대비 종가 변화율을 추가합니다.
+    :param df: 'Close' 컬럼을 포함하는 데이터프레임
+    :return: 'Daily_Change_Pct' 컬럼이 추가된 데이터프레임
+    """
+    df['Daily_Change_Pct'] = df['Close'].pct_change() * 100
+    return df
+
