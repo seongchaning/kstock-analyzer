@@ -60,9 +60,10 @@ if 'results' not in st.session_state or st.sidebar.button("분석 시작", use_c
             df = get_price_history(ticker, start_date, end_date)
             if df.empty: continue
 
-            df = add_bollinger_bands(df.copy(), window=bb_window, std=bb_std)
-            df = add_rsi(df.copy(), window=rsi_window)
-            df = add_macd(df.copy(), short_window=macd_short, long_window=macd_long, signal_window=macd_signal)
+            df = add_daily_percentage_change(df) # Modify df directly, no copy needed here
+            df = add_bollinger_bands(df, window=bb_window, std=bb_std) # Pass the same df
+            df = add_rsi(df, window=rsi_window) # Pass the same df
+            df = add_macd(df, short_window=macd_short, long_window=macd_long, signal_window=macd_signal) # Pass the same df
             
             # Generate signals for each row for plotting
             df['signal'] = df.apply(lambda row: generate_signals(pd.DataFrame([row])), axis=1)
